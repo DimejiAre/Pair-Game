@@ -21,39 +21,103 @@
     <div class="container frame">
         <!--row one-->
         <div class="row">
-            <div class="col-md-3">1</div>
-            <div class="col-md-3">2</div>
-            <div class="col-md-3">3</div>
-            <div class="col-md-3">4</div>
+            <div class="col-md-3 box1" id="box1" onclick="myfunction('#box1')">1</div>
+            <div class="col-md-3 box2" id="box2" onclick="myfunction('#box2')">2</div>
+            <div class="col-md-3 box3" id="box3" onclick="myfunction('#box3')">3</div>
+            <div class="col-md-3 box4" id="box4" onclick="myfunction('#box4')">4</div>
         </div>
         <!--end of row one-->
         <!--row two-->
         <div class="row">
-            <div class="col-md-3">1</div>
-            <div class="col-md-3">2</div>
-            <div class="col-md-3">3</div>
-            <div class="col-md-3">4</div>
+            <div class="col-md-3 box1" id="box5" onclick="myfunction('#box5')">1</div>
+            <div class="col-md-3 box2" id="box6" onclick="myfunction('#box6')">2</div>
+            <div class="col-md-3 box3" id="box7" onclick="myfunction('#box7')">3</div>
+            <div class="col-md-3 box4" id="box8" onclick="myfunction('#box8')">4</div>
         </div>
         <!--end of row two-->
         <!--row three-->
         <div class="row">
-            <div class="col-md-3">1</div>
-            <div class="col-md-3">2</div>
-            <div class="col-md-3">3</div>
-            <div class="col-md-3">4</div>
+            <div class="col-md-3 box5" id="box9" onclick="myfunction('#box9')">4</div>
+            <div class="col-md-3 box6" id="box10" onclick="myfunction('#box10')">5</div>
+            <div class="col-md-3 box7" id="box11" onclick="myfunction('#box11')">6</div>
+            <div class="col-md-3 box8" id="box12" onclick="myfunction('#box12')">7</div>
         </div>
         <!--end of row three-->
         <!--row four-->
         <div class="row">
-            <div class="col-md-3">1</div>
-            <div class="col-md-3">2</div>
-            <div class="col-md-3">3</div>
-            <div class="col-md-3">4</div>
+            <div class="col-md-3 box5" id="box13" onclick="myfunction('#box13')">4</div>
+            <div class="col-md-3 box6" id="box14" onclick="myfunction('#box14')">5</div>
+            <div class="col-md-3 box7" id="box15" onclick="myfunction('#box15')">6</div>
+            <div class="col-md-3 box8" id="box16" onclick="myfunction('#box16')">7</div>
         </div>
         <!--end of row four-->
     </div>
 <script>
+     var clicked;
+     var figure;
+     var holder;
+     function myfunction(value){
+            figure = $(value).text();
+            // not in use for now $("." + bla).css("background", "blue");
+        //  no tile has been selected
+            if(clicked === undefined){
+                $(value).css({"background": "red", "color": "black"});
+                clicked = value;
+                holder = figure;
+                
+            }
+            // correct pair tile has been selected
+            else if(holder === figure){
+                var pair = $(value).attr('class').split(' ')[1];
+                console.log(pair);
+                $("." + pair).css({"background" : "blue", "color" : "black"});
+                clicked = undefined;
+                holder = undefined;
+                
+            }
+            // wrong pair tile has been selected
+            else{
+                //get background and value for current tile state
+                var bground = $(value).css('background');
+                var clr = $(value).css('color');
 
+                //change tile colour
+                $(value).css({"background": "red", "color": "black"});
+
+                // unselect current tile/revert
+                setTimeout(function(){
+                    $(value).css("background", bground);
+                    $(value).css("color", clr);
+                }, 1000);
+                
+                //unselect previous tile
+                $(clicked).css("background", bground);
+                $(clicked).css("color", clr);
+
+                //reset clicked value
+                clicked = undefined;
+            }
+        }
+    // $(Document).ready(function(){
+    //     $("#box1").on("click", function(){
+    //         var bground = $("#box1").css('background');
+    //         var clr = $("#box1").css('color');
+
+    //         $("#box1").css({"background": "red", "color": "black"});
+
+    //         setTimeout(function(){
+    //             $("#box1").css("background", bground);
+    //         }, 2000);
+    //         setTimeout(function(){
+    //             $("#box1").css("color", clr);
+    //         }, 2000);
+    //         //$("#box1").css("color","black");
+    //         // console.log("works");
+    //         // $("#box1").prop("diabled", "true");
+    //         // $("#box1").addClass("fade");
+
+    //     });
+    // });
 </script>
 </body>
 
