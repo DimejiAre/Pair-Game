@@ -37,18 +37,18 @@
         <!--end of row two-->
         <!--row three-->
         <div class="row">
-            <div class="col-md-3 box5" id="box9" onclick="myfunction('#box9')">4</div>
-            <div class="col-md-3 box6" id="box10" onclick="myfunction('#box10')">5</div>
-            <div class="col-md-3 box7" id="box11" onclick="myfunction('#box11')">6</div>
-            <div class="col-md-3 box8" id="box12" onclick="myfunction('#box12')">7</div>
+            <div class="col-md-3 box5" id="box9" onclick="myfunction('#box9')">5</div>
+            <div class="col-md-3 box6" id="box10" onclick="myfunction('#box10')">6</div>
+            <div class="col-md-3 box7" id="box11" onclick="myfunction('#box11')">7</div>
+            <div class="col-md-3 box8" id="box12" onclick="myfunction('#box12')">8</div>
         </div>
         <!--end of row three-->
         <!--row four-->
         <div class="row">
-            <div class="col-md-3 box5" id="box13" onclick="myfunction('#box13')">4</div>
-            <div class="col-md-3 box6" id="box14" onclick="myfunction('#box14')">5</div>
-            <div class="col-md-3 box7" id="box15" onclick="myfunction('#box15')">6</div>
-            <div class="col-md-3 box8" id="box16" onclick="myfunction('#box16')">7</div>
+            <div class="col-md-3 box5" id="box13" onclick="myfunction('#box13')">5</div>
+            <div class="col-md-3 box6" id="box14" onclick="myfunction('#box14')">6</div>
+            <div class="col-md-3 box7" id="box15" onclick="myfunction('#box15')">7</div>
+            <div class="col-md-3 box8" id="box16" onclick="myfunction('#box16')">8</div>
         </div>
         <!--end of row four-->
     </div>
@@ -56,9 +56,12 @@
      var clicked;
      var figure;
      var holder;
+     
      function myfunction(value){
             figure = $(value).text();
-            // not in use for now $("." + bla).css("background", "blue");
+            
+            if($(value).css("background-color") != "rgb(0, 0, 255)"){
+            
         //  no tile has been selected
             if(clicked === undefined){
                 $(value).css({"background": "red", "color": "black"});
@@ -67,7 +70,7 @@
                 
             }
             // correct pair tile has been selected
-            else if(holder === figure){
+            else if(holder === figure && clicked !== value){
                 var pair = $(value).attr('class').split(' ')[1];
                 console.log(pair);
                 $("." + pair).css({"background" : "blue", "color" : "black"});
@@ -76,7 +79,7 @@
                 
             }
             // wrong pair tile has been selected
-            else{
+            else if(clicked != value){
                 //get background and value for current tile state
                 var bground = $(value).css('background');
                 var clr = $(value).css('color');
@@ -97,6 +100,7 @@
                 //reset clicked value
                 clicked = undefined;
             }
+     }
         }
     // $(Document).ready(function(){
     //     $("#box1").on("click", function(){
