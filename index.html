@@ -21,34 +21,34 @@
     <div class="container frame">
         <!--row one-->
         <div class="row">
-            <div class="col-md-3 box1" id="box1" onclick="myfunction('#box1')">1</div>
-            <div class="col-md-3 box2" id="box2" onclick="myfunction('#box2')">2</div>
-            <div class="col-md-3 box3" id="box3" onclick="myfunction('#box3')">3</div>
-            <div class="col-md-3 box4" id="box4" onclick="myfunction('#box4')">4</div>
+            <div class="col-md-3 box1" id="box1" onclick="myfunction('#box1')"></div>
+            <div class="col-md-3 box2" id="box2" onclick="myfunction('#box2')"></div>
+            <div class="col-md-3 box3" id="box3" onclick="myfunction('#box3')"></div>
+            <div class="col-md-3 box4" id="box4" onclick="myfunction('#box4')"></div>
         </div>
         <!--end of row one-->
         <!--row two-->
         <div class="row">
-            <div class="col-md-3 box1" id="box5" onclick="myfunction('#box5')">1</div>
-            <div class="col-md-3 box2" id="box6" onclick="myfunction('#box6')">2</div>
-            <div class="col-md-3 box3" id="box7" onclick="myfunction('#box7')">3</div>
-            <div class="col-md-3 box4" id="box8" onclick="myfunction('#box8')">4</div>
+            <div class="col-md-3 box1" id="box5" onclick="myfunction('#box5')"></div>
+            <div class="col-md-3 box2" id="box6" onclick="myfunction('#box6')"></div>
+            <div class="col-md-3 box3" id="box7" onclick="myfunction('#box7')"></div>
+            <div class="col-md-3 box4" id="box8" onclick="myfunction('#box8')"></div>
         </div>
         <!--end of row two-->
         <!--row three-->
         <div class="row">
-            <div class="col-md-3 box5" id="box9" onclick="myfunction('#box9')">5</div>
-            <div class="col-md-3 box6" id="box10" onclick="myfunction('#box10')">6</div>
-            <div class="col-md-3 box7" id="box11" onclick="myfunction('#box11')">7</div>
-            <div class="col-md-3 box8" id="box12" onclick="myfunction('#box12')">8</div>
+            <div class="col-md-3 box5" id="box9" onclick="myfunction('#box9')"></div>
+            <div class="col-md-3 box6" id="box10" onclick="myfunction('#box10')"></div>
+            <div class="col-md-3 box7" id="box11" onclick="myfunction('#box11')"></div>
+            <div class="col-md-3 box8" id="box12" onclick="myfunction('#box12')"></div>
         </div>
         <!--end of row three-->
         <!--row four-->
         <div class="row">
-            <div class="col-md-3 box5" id="box13" onclick="myfunction('#box13')">5</div>
-            <div class="col-md-3 box6" id="box14" onclick="myfunction('#box14')">6</div>
-            <div class="col-md-3 box7" id="box15" onclick="myfunction('#box15')">7</div>
-            <div class="col-md-3 box8" id="box16" onclick="myfunction('#box16')">8</div>
+            <div class="col-md-3 box5" id="box13" onclick="myfunction('#box13')"></div>
+            <div class="col-md-3 box6" id="box14" onclick="myfunction('#box14')"></div>
+            <div class="col-md-3 box7" id="box15" onclick="myfunction('#box15')"></div>
+            <div class="col-md-3 box8" id="box16" onclick="myfunction('#box16')"></div>
         </div>
         <!--end of row four-->
     </div>
@@ -56,7 +56,29 @@
      var clicked;
      var figure;
      var holder;
+     var keyarr = [];
+     var arr = [1,2,3,4,5,6,7,8,1,2,3,4,5,6,7,8];
+     var item = {};
      
+    function shuffleArray(array) {
+    for (var i = array.length - 1; i > 0; i--) {
+        var j = Math.floor(Math.random() * (i + 1));
+        var temp = array[i];
+        array[i] = array[j];
+        array[j] = temp;
+    }
+    return array;
+}
+
+newarr = shuffleArray(arr);
+
+     for(var i = 1; i <= 16; i++){
+         var element = newarr.pop();
+         $("#box" + i).html(element);
+         item[i] = element;
+     }
+     //console.log(item);
+
      function myfunction(value){
             figure = $(value).text();
             
@@ -71,9 +93,23 @@
             }
             // correct pair tile has been selected
             else if(holder === figure && clicked !== value){
-                var pair = $(value).attr('class').split(' ')[1];
-                console.log(pair);
-                $("." + pair).css({"background" : "blue", "color" : "black"});
+                for (var prop in item){
+                    if(item.hasOwnProperty(prop)){
+                        if(item[prop] === parseInt(figure)){
+                        keyarr.push(prop)
+                        }
+                    }
+                }
+                console.log("get's here");
+                console.log("#box" + keyarr[0]);
+                console.log("#box" + keyarr[1]);
+                $("#box"+ keyarr[0]).css({"background" : "blue", "color" : "black"});
+                $("#box"+ keyarr[1]).css({"background" : "blue", "color" : "black"});
+
+                // var pair = $(value).attr('class').split(' ')[1];
+                // console.log("pair " + pair);
+                // $("." + pair).css({"background" : "blue", "color" : "black"});
+                keyarr = [];
                 clicked = undefined;
                 holder = undefined;
                 
@@ -91,7 +127,7 @@
                 setTimeout(function(){
                     $(value).css("background", bground);
                     $(value).css("color", clr);
-                }, 1000);
+                }, 300);
                 
                 //unselect previous tile
                 $(clicked).css("background", bground);
